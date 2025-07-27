@@ -1,24 +1,24 @@
 #!/bin/bash
-DIR="$HOME/MONITORAMENTO"
-LOG="$DIR/relatorio.log"
+DIR="$HOME/MONITORING"
+LOG="$DIR/report.log"
 
 mkdir -p "$DIR"
 
 {
 echo " ============================================= "
-echo " Monitoramento do sistema $(date) "
+echo " System monitoring $(date) "
 echo " ============================================="
-echo " Uso da CPU"
+echo "CPU usage"
 uptime | awk -F'load average: ' '{print $2}'
-echo "Uso da memória ram"
+echo "Memory usage"
 free -h
-echo "Uso do disco"
+echo "Disk usage"
 df -h 
-echo " 5 top  processos mais pesados"
+echo "Top 5 heaviest processes"
 ps -eo pid,comm,%cpu,%mem --sort=-%cpu | head -n 6
-echo " Ip da rede"
+echo " Network IP"
 ip a
 } > "$LOG"
 
-echo " Relatório salvo em $LOG"
+echo "Report saved in $LOG"
 
